@@ -1,0 +1,3 @@
+node-xml2js (https://github.com/Leonidas-from-XIV/node-xml2js) is a great way to create generic JS objects from XML documents. One issue is that properties that are arrays will only be generated as arrays in the target object if they contain more than one item. Also, properties with data types other than string will be stored as strings in the object. Finally, no validation of the object data occurs (e.g. to make sure that a required property is present).
+
+xml2js-schema is a proposed add-on for node-xml2js that validates a JS object as it is created using a JSON schema (http://json-schema.org/). It makes sure that properties have the right data types and does some basic validation.
