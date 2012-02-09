@@ -1,6 +1,7 @@
 describe("Schema-driven XML to JS object generation", function() {
   var parser, schema, obj;
   beforeEach(function() {
+    obj = null;
     err = null;
     schema = 
     {
