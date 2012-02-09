@@ -2,13 +2,8 @@
 // Dual-licensed under MIT license and GPL v2.
 
 (function() {
-  exports.Validator = (function() {
-
-    function Validator(schema) {
-      this._schema = schema;
-    }
-
-    Validator.prototype.validate = function(obj, stack, nodeName) {
+ exports.validator = (function() {
+    return function(schema, obj, stack, nodeName) {
       var s = stack[stack.length - 1];
       var schemaNode;
       var schemaNodeName;
@@ -25,7 +20,7 @@
         if (i === 0) {
           // We're at the bottom of the stack so get the root item from the schema.
           // It is always an object.
-          schemaNode = this._schema;
+          schemaNode = schema;
           schemaNodeName = schemaNode.name;
           nodeType = "object";
           if (name !== schemaNodeName) {
@@ -86,6 +81,5 @@
       }
       return obj;
     }
-    return Validator;
   })();
 }).call(this);
