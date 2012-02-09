@@ -1,3 +1,6 @@
+// (c) 2012 Salsita s.r.o.
+// Dual-licensed under MIT license and GPL v2.
+
 (function() {
   exports.Validator = (function() {
 
@@ -38,7 +41,7 @@
           nodeType = schemaNode.type;
         }
         // Remember our properties for the next item in the stack.
-        if (nodeType == "object") {
+        if (nodeType === "object") {
           properties = schemaNode.properties;
         }
         else {
@@ -63,7 +66,7 @@
           throw new Error("Cannot assign an object to literal property " + name);
         }
         // Convert the datatype of the value if necessary.
-        if (nodeType === "number") {
+        if (nodeType === "number" || nodeType === "integer") {
           obj = Number(obj);
         }
         // TODO: Could add more conversions here if we need them.
@@ -76,7 +79,8 @@
               throw new Error("Object " + name + " is missing required property " + propName);
             }
           }
-        } else {
+        }
+        else {
           throw new Error("Cannot assign a literal to object property " + name);
         }
       }
