@@ -75,7 +75,7 @@ describe("Schema-driven XML to JS object generation", function() {
         }
       }
     };
-    var xml2js = require("../other/xml2js");
+    var xml2js = require("xml2js");
     var xml2js_schema = require("../../../xml2js-schema");
     parser = new xml2js.Parser({ validator: function(o, stack, nodeName) { return xml2js_schema.validator(schema, o, stack, nodeName); }});
     parser.addListener("end", function(result) {
