@@ -1,5 +1,5 @@
 describe("Schema-driven XML to JS object generation", function() {
-  var parser, schema, obj;
+  var parser, schema, obj, err;
   beforeEach(function() {
     obj = null;
     err = null;
@@ -77,7 +77,9 @@ describe("Schema-driven XML to JS object generation", function() {
     };
     var xml2js = require("xml2js");
     var xml2js_schema = require("../../../xml2js-schema");
-    parser = new xml2js.Parser({ validator: function(o, stack, nodeName) { return xml2js_schema.validator(schema, o, stack, nodeName); }});
+    parser = new xml2js.Parser({ validator: function(o, stack, nodeName) {
+      return xml2js_schema.validator(schema, o, stack, nodeName);
+    }});
     parser.addListener("end", function(result) {
       obj = result;
     });
@@ -104,11 +106,6 @@ describe("Schema-driven XML to JS object generation", function() {
     expect(obj.id instanceof Array).toBeFalsy();
   });
   it("should complain if a required property is missing", function() {
-    var xml = "<Product><id>42</id><name>iPad</name><tags>tablet</tags></Product>";
-    parser.parseString(xml);
-    expect(err).toEqual("Object Product is missing required property price");
-  });
-  it("should complain if a required subobject are missing", function() {
     var xml = "<Product><id>42</id><name>iPad</name><tags>tablet</tags></Product>";
     parser.parseString(xml);
     expect(err).toEqual("Object Product is missing required property price");
