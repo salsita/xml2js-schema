@@ -2,13 +2,9 @@
 // Dual-licensed under MIT license and GPL v2.
 
 (function() {
-  exports.Validator = (function() {
-
-    function Validator(schema) {
-      this._schema = schema;
-    }
-
-    Validator.prototype.validate = function(obj, stack, nodeName) {
+  exports.validator = (function() {
+    var ValidationError = require("xml2js").ValidationError;
+    return function(schema, obj, stack, nodeName) {
       var s = stack[stack.length - 1];
       var schemaNode;
       var schemaNodeName;
@@ -25,12 +21,12 @@
         if (i === 0) {
           // We're at the bottom of the stack so get the root item from the schema.
           // It is always an object.
-          schemaNode = this._schema;
+          schemaNode = schema;
           schemaNodeName = schemaNode.name;
           nodeType = "object";
           if (name !== schemaNodeName) {
             // Oops, we're not the kind of object we expected.
-            throw new Error("Expected object " + schemaNodeName + " but found " + name);
+            throw new ValidationError("Expected object " + schemaNodeName + " but found " + name);
           }
         }
         else {
@@ -63,7 +59,7 @@
       // Now we've walked up the whole stack so we have the node type of the last item.
       if (nodeType !== "object") {
         if (obj instanceof Object) {
-          throw new Error("Cannot assign an object to literal property " + name);
+          throw new ValidationError("Cannot assign an object to literal property " + name);
         }
         // Convert the datatype of the value if necessary.
         if (nodeType === "number" || nodeType === "integer") {
@@ -76,16 +72,15 @@
           // Check that all required properties are present
           for (propName in properties) {
             if (properties[propName].required && !(propName in obj)) {
-              throw new Error("Object " + name + " is missing required property " + propName);
+              throw new ValidationError("Object " + name + " is missing required property " + propName);
             }
           }
         }
         else {
-          throw new Error("Cannot assign a literal to object property " + name);
+          throw new ValidationError("Cannot assign a literal to object property " + name);
         }
       }
       return obj;
     }
-    return Validator;
   })();
 }).call(this);
