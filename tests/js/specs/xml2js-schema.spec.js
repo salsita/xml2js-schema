@@ -148,7 +148,6 @@ describe("Schema-driven XML to JS object generation", function() {
   it("should represent numeric properties using numbers", function() {
     var xml = "<Product><id>42</id><name>iPad</name><price>499</price><numericTags>1</numericTags>";
     xml += "<stock><warehouse>55</warehouse></stock></Product>";
-    debugger;
     parser.parseString(xml);
     expect(typeof obj.price).toEqual("number");
     expect(typeof obj.numericTags[0]).toEqual("number");

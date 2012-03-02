@@ -73,7 +73,7 @@
             if (properties[propName].required) {
               throw new ValidationError("Object " + name + " is missing required property " + propName);
             }
-            else if (properties[propName].type == "array") {
+            else if (properties[propName].type === "array") {
               newValue[propName] = [];
             }
           }
