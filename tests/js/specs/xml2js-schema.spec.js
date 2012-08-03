@@ -149,4 +149,11 @@ describe("Schema-driven XML to JS object generation", function() {
     expect(typeof obj.name).toEqual("string");
     expect(typeof obj.stock.warehouse).toEqual("number");
   });
+  it("should interpret an empty element of string type as the empty string", function() {
+    var xml = "<Product><id>42</id><name></name><price>499</price></Product>";
+    parser.parseString(xml);
+    expect(err).toBeNull();
+    expect(typeof obj.name).toEqual("string");
+    expect(obj.name).toEqual("");
+  });
 });

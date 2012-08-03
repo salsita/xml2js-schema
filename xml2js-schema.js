@@ -56,6 +56,12 @@
     }
     // Now we've walked up the whole stack so we have the node type of the last item.
     if (nodeType !== "object") {
+      // <text>nonempty<text>  is parsed as newValue === "nonempty"
+      // <text><text>  is parsed as newValue === {}
+      // Detect empty "string" type newValue and prevent the next exception from throwing.
+      if (nodeType === "string" && typeof newValue === "object" && Object.keys(newValue).length === 0 )  {
+        newValue = "";
+      }
       if (newValue instanceof Object) {
         throw new ValidationError("Cannot assign an object to literal property " + name);
       }
