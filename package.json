@@ -1,0 +1,17 @@
+{
+  "name" : "xml2js-schema",
+  "description" : "JSON schema support for xml2js.",
+  "keywords" : ["xml2js", "schema"],
+  "homepage" : "https://github.com/salsita/xml2js-schema",
+  "version" : "0.1.0",
+  "author" : "Matthew Gertner <matthew@salsitasoft.com>",
+  "contributors" : [
+    "Roman Kaspar <roman@salsitasoft.com>",
+    "Pavel Suchmann <pavel.suchmann@gmail.com>"
+  ],
+  "main" : "./xml2js-schema",
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:salsita/xml2js-schema.git"
+  }
+}
